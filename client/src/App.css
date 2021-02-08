@@ -1,0 +1,128 @@
+.App {
+  text-align: center;
+  background-color:black;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color:black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(235, 10, 10);
+}
+
+.App-link {
+  color: #f52804;
+}
+
+.header { 
+  background:rgba(0,0,0,0.7);
+   text-align:left; text-transform:none; 
+   font:15px/1.4 Roboto, sans-serif; 
+  }
+  .header__wrap { max-width:1200px; margin: 0 auto;display:flex; flex-direction:row;}
+  .header__grow { flex-grow:1; }
+  .header__item { padding:30px 20px 5px; }
+  .header__label { color:#fff; }
+  .header__value {}
+  .lang { position:relative; cursor:default; }
+  .lang div { padding:3px 0 10px; color:#fff; }
+  .lang ul { padding:3px 0px; margin:0 0 0 -15px; position:absolute; top:100%; left:0; background:rgba(0,0,0,0.4); list-style:none; z-index:999; border-radius:3px; display:none; }
+    .lang:hover ul { display:block; }
+  .lang li { display:block; white-space:nowrap; }
+  .lang a { display:block; padding:5px 25px 5px 15px; cursor:pointer; color:#fff; text-decoration:none; }
+    .lang a:hover { background:rgba(0,0,0,0.2); }
+  .lang img { width:20px; margin:0 8px 0 0; position:relative; top:3px; }
+
+.Section1{
+  position: relative;
+  padding: 300px 0px 20px;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  
+}
+.Section1 .toplogo{
+  position: absolute;
+  z-index: 1;
+  max-width: 100%;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+.Section1 .tophlogo{
+  position: absolute;
+  max-width: 100%;
+  top:10px;
+  
+}
+
+.container{
+  max-width: 100%;
+  padding: 0px 30px;
+  text-align: center;
+  margin: auto;
+  
+}
+.container .p{
+  left:50%;
+  text-transform: uppercase;
+  
+  color: #f3ebea;
+}
+.container .t{
+  width: auto;
+  left:20%;
+  text-transform: uppercase;
+  
+  color: #f3ebea;
+}
+.counter-wrapper{
+  
+  width:400px;
+  height:100px;
+  border: 5px solid firebrick;
+  background: radial-gradient(red,black);
+  margin: 0 auto 45px;
+  box-sizing: border-box;
+  line-height: 85px;
+  font-size: 30px;
+  color:white;
+  font-family: Roboto, sans-serif;
+  white-space: nowrap; 
+}
+h1{
+  color: #d1ffff;
+}
+ h2 {
+  font-size: 46px;
+  margin: 0 0 35px; 
+  color: #d1ffff;}
+
+h3 {
+  font-size: 26px;
+  margin: 0 0 55px;
+  color: #d1ffff; }
+
+p {
+  margin: 0 0 25px;
+  color: #d1ffff;
+ }
+
+a {
+  color: #ff0000; }
+
+span{
+  color: #d1ffff;
+}
+
+  
+  
