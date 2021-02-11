@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@openzeppelin/contracts": "^3.3.0",
+    "bootstrap": "^4.6.0",
     "chai": "^4.2.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",

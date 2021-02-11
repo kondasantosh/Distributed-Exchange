@@ -69,7 +69,7 @@ contract Exchange is Owner{
 
     }
 
-    function withdrawEther(uint amountInWei) public{
+    function withdrawEther(uint amountInWei) public payable{
             require((balanceEtherAddress[msg.sender]-amountInWei)>=0,"You dont have  enough balance");
             require(amountInWei>0);
             (msg.sender).transfer(amountInWei);
