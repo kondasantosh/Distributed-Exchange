@@ -2,13 +2,16 @@ import  React from "react";
 import App from "../App";
 
 
-function ManageToken(){
+function ManageToken(props){
+
+    
+    
     return(
         <div  className="ManageToken">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row ">
                     <div class="col-lg-8">
-                        <h1>Manage Token</h1>
+                        <h1>Manage Token </h1>
                          <p>This page is intended for the FIXED Token as sample only. You can send token and you can approve token.
                              <br/>
                             Additionally you can add a token to the exchange provided in this example.
@@ -22,13 +25,13 @@ function ManageToken(){
                                          <form>
                                              <div class="form-group">
                                                  <lable for="inputAmountSendToken">Amount in Token</lable>
-                                                 <input type="text" name="InputAmountSendToken" class="form-control"  ></input>
+                                                 <input type="text" name="InputAmountSendToken" class="form-control"  value={props.TokenValue}  onChange={props.InputHandleChangeForValue}></input>
                                              </div>
                                              <div class="form-group">
                                                  <lable for="inputBeneficiarySendToken">To Address</lable>
-                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control"></input>
+                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control" value={props.Reciepent} onChange={props.InputHandleChangeForText}></input>
                                              </div>
-                                             <button type="button" class="btn btn-primary" >Send Token</button>
+                                             <button type="button" class="btn btn-primary" onClick={props.TokenTransfer} >Send Token</button>
                                          </form>
                                      </div>
                                      <div class="card-footer">Directly send a token from your address to another address.</div>
@@ -47,7 +50,7 @@ function ManageToken(){
                                                  <lable for="inputBeneficiaryAllowanceToken">To Address</lable>
                                                  <input type="text" name="InputBeneficiarySendToken" class="form-control"></input>
                                              </div>
-                                             <button type="button" class="btn btn-primary">Allow Token to be used</button>
+                                             <button type="button" class="btn btn-primary" onClick={props.ApproveToken}>Allow Token to be used</button>
                                          </form>
                                      </div>
                                      <div class="card-footer">Approve the address <i>to be allowed</i> to send a token from your
@@ -60,7 +63,7 @@ function ManageToken(){
                     </div> 
                     <br/>  
                     <div class="card">
-                                     <div class="card-header bg-primary text-white">Approve Token Allowance</div>
+                                     <div class="card-header bg-primary text-white">Add Token to Exchange</div>
                                      <div class="card-body">
                                          <form>
                                              <div class="form-group">
@@ -71,7 +74,7 @@ function ManageToken(){
                                                  <lable for="inputBeneficiaryAllowanceToken">Address of Token</lable>
                                                  <input type="text" name="InputBeneficiarySendToken" class="form-control"></input>
                                              </div>
-                                             <button type="button" class="btn btn-primary">Add Token to Exchange</button>
+                                             <button type="button" class="btn btn-primary" onClick={props.AddTokenToExchange}>Add Token to Exchange</button>
                                          </form>
                                      </div>
                                      
@@ -83,7 +86,8 @@ function ManageToken(){
                                      <br/>
                         
                 </div>
-                <div class="card" style={{flex: 1,backgroundColor: '#808080'}}>
+
+                <div class="col-lg-8" style={{flex: 1,backgroundColor: '#808080'}}>
                         <br/>
                         <h3>Events from the Token Contract</h3>                    
                         

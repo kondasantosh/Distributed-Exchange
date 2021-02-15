@@ -2,20 +2,34 @@ import React, { Component } from "react";
 import Exchange from "./contracts/Exchange.json";
 import Token from "./contracts/MyToken.json";
 import getWeb3 from "./getWeb3";
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import logo from './logo.svg';
 import "./App.css";
 
 
 import { BrowserRouter as Router, Route,Link, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About, ManageToken } from "./components";
+import { Navigation, Footer, ExchangeOverview, About, ManageToken } from "./components";
+
+
 
 
   const Hoe=()=>{
-    return(<h3>home</h3>);
+    
+    return(
+    <div>
+    <h3>home</h3>
+    
+    </div>
+
+      );
   };
 
 class App extends Component {
-  state = { CurrentAddress:"0X123" ,Load:false, NTokens:0,balance:0,Reciepent:"0x123",TokenValue:0,NameOfToken:"",AddressOfToken:"",Tokenevent:"",WithDrawEther:0};
+  constructor(){
+    super();
+    this.state = { CurrentAddress:"0X123" ,Load:false, NTokens:0,balance:0,Reciepent:"0x123",TokenValue:0,NameOfToken:"",AddressOfToken:"",Tokenevent:"",WithDrawEther:0};
+  }
+  
 
   componentDidMount = async () => {
     try {
@@ -75,10 +89,12 @@ class App extends Component {
     console.log(usertoken);
     this.setState({NTokens:usertoken});
   }
-    TransferToken=async ()=>{
    
-    const {Reciepent,TokenValue}=this.state;
-    let tokenInstancesend= await this.TokenInstance.methods.transfer(Reciepent,TokenValue).send({from:this.accounts[0]});
+  
+  TransferToken=async ()=>{
+   
+    
+    let tokenInstancesend= await this.TokenInstance.methods.transfer(this.state.Reciepent,this.state.TokenValue).send({from:this.accounts[0]});
     this.UpdateUserToken();
     console.log(tokenInstancesend);
     
@@ -98,6 +114,7 @@ class App extends Component {
   
 
    this.setState({Reciepent:value});
+   console.log(value);
    
  }
  
@@ -106,7 +123,22 @@ class App extends Component {
   const value=target.type==="checkBox" ? target.checked: target.value;
   
   this.setState({TokenValue:value});
+  console.log(value);
  
+}
+
+InputHandleChangeForSymbolToken=(event)=>{
+  const target=event.target;
+  const value=target.type==="checkBox" ? target.checked: target.value;
+
+  this.setState({NameOfToken:value})
+}
+
+InputHandleChangeForSymbolAddress=(event)=>{
+  const target=event.target;
+  const value=target.type==="checkBox" ? target.checked: target.value;
+
+  this.setState({AddressOfToken:value})
 }
 
 ApproveAccount=async()=>{
@@ -115,7 +147,7 @@ ApproveAccount=async()=>{
 }
 
  AddTokenToExchange=async()=>{
-   await this.ExchangeInstance.methods.addToken(this.state.NameOfToken,this.state.AddressOfToken).call({from:this.address[0]});
+   await this.ExchangeInstance.methods.addToken(this.state.NameOfToken,this.state.AddressOfToken).call({from:this.accounts[0]});
 
  }  
  //eventlistnerwrong//
@@ -148,6 +180,15 @@ ApproveAccount=async()=>{
       <button type="button" onClick={this.handleBalanceEther}>Balance</button>
       <button type="button" onClick={this.UpdateUserToken}>Token</button>
       <button type="button" onClick={this.TransferToken}>BuyToken</button>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/" exact component={() => <Home />} />
+          <Route path="/About" exact component={() => <About />} />
+          <Route path="/ManageToken" exact component={() => <ManageToken />} />
+        </Switch>
+        <Footer />
+      </Router>
   
 */
 
@@ -159,21 +200,19 @@ ApproveAccount=async()=>{
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
+    
       <div className="App">
-        
-      
-      
-    <Router>
+         <Router>
         <Navigation />
         <Switch>
-          <Route path="/" exact component={() => <Home />} />
+          <Route path="/" exact component={() => <ExchangeOverview Token={this.state.NTokens} balance={this.state.balance}/>} />
           <Route path="/About" exact component={() => <About />} />
-          <Route path="/ManageToken" exact component={() => <ManageToken />} />
+          <Route path="/ManageToken" exact component={() => <ManageToken  TokenTransfer={this.TransferToken} ApproveToken={this.ApproveAccount} AddTokenToExchange={this.AddTokenToExchange}  Reciepent ={this.state.Reciepent} TokenValue={this.state.TokenValue} InputHandleChangeForText={this.InputHandleChangeForText}  InputHandleChangeForValue={this.InputHandleChangeForValue}/>} />
         </Switch>
         <Footer />
       </Router>
-    
       </div>
+    
       
     );
   }

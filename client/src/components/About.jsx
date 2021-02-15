@@ -3,26 +3,109 @@ import  React from "react";
 function About(){
     return(
         <div  className="About">
-            <div class="container">
-                <div class="row align-items-center my-5">
-                    <div class="col-lg-7">
-                        <img 
-                            class="img-fluid rounded mb-4 mb-lg-0"
-                            src="http://placehold.it/900x400"
-                            alt=""
-                            />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                    <h1>Distributed Token Exchange</h1>
+                    <p>Here you can trade the FIXED token we discuss during our course. The Solidity Contract is not limited to a single token and new tokens can be easily added.</p>
+                    <h3>New Order</h3>
+                    <div class="row">
+                        <div class="col-lg-6">
+                        <div class=" card">
+                              <div class="card-header bg-primary text-white">Buy Token</div>
+                                <div class="card-body ">
+                                <form>
+                                <div class="form-group">
+                                <lable for="inputAmountBuyToken">SymbolName</lable>
+                                <input type="text" name="InputAmountBuyToken" class="form-control"  ></input>
+                                </div>
+                                   <div class="form-group">
+                                   <lable for="inputBeneficiaryBuyToken">Price in Wei</lable>
+                                   <input type="text" name="InputBeneficiaryBuyToken" class="form-control" ></input>
+                                   </div>
+                              
+                                   </form>
+                                   </div>
+                                   <div class="card-footer"><button type="button" class="btn btn-primary" >Deposit Token</button></div>
+                                   </div> 
+
+                        </div>
+                        <div class="col-lg-6">
+                        <div class=" card">
+                              <div class="card-header bg-primary text-white">Sell Token</div>
+                                <div class="card-body ">
+                                <form>
+                                <div class="form-group">
+                                <lable for="inputAmountBuyToken">SymbolName</lable>
+                                <input type="text" name="InputAmountBuyToken" class="form-control"  ></input>
+                                </div>
+                                   <div class="form-group">
+                                   <lable for="inputBeneficiaryBuyToken">Price in Wei</lable>
+                                   <input type="text" name="InputBeneficiaryBuyToken" class="form-control" ></input>
+                                   </div>
+                              
+                                   </form>
+                                   </div>
+                                   <div class="card-footer"><button type="button" class="btn btn-primary" >Sell Token</button></div>
+                                   </div> 
+
+                                   </div>
+
+
                     </div>
-                    <div class="col-lg-5">
-                        <h1 class="font-weight-light">About</h1>
-                        <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book.
-                        </p>
+                    <br/>
+                    <h3>Order Book</h3>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header bg-danger ">
+                                    <div class="card-title">
+                                    BID
+                                    </div>
+                                </div>
+                                <div class="card-body"></div>                        
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                    Ask
+                                    </div>
+                                </div>
+                                <div class="card-body"></div>                        
+                            </div>
+
+                        </div>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    </div>
+                    
+                  
+                   <div class="col-lg-4" style={{backgroundColor: '#808080'}}>
+                        <br/>
+                        <h3>Your Assets</h3>    
+                        <div><span ></span> DE Token</div>
+                        <div><span ></span> ETHER</div>                
+                        <h3>Fulfilled Orders</h3>
+                        <div ></div>
+                        <h3>Limit Orders</h3>
+                        <div ></div>  
+                        <h3>Status from our Javascript</h3>
+                        <span></span>
+                        <h3>Important Information</h3>
+                        <span></span>
+                    </div> 
+                    
                 </div>
+                
             </div>
+            
         </div>
     );
 }
