@@ -27,7 +27,7 @@ import { Navigation, Footer, ExchangeOverview, About, ManageToken } from "./comp
 class App extends Component {
   constructor(){
     super();
-    this.state = { CurrentAddress:"0X123" ,Load:false, NTokens:0,balance:0,Reciepent:"0x123",TokenValue:0,NameOfToken:"",AddressOfToken:"",Tokenevent:"",WithDrawEther:0};
+    this.state = { CurrentAddress:"0X123" ,Load:false, NTokens:0,AllowanceToken:0,AllowanceAddress:"0X123",balance:0,Reciepent:"0x123",TokenValue:1,NameOfToken:"DE",AddressOfToken:"0x64aeBc75a0285D7b2D2d5c6A20eB3E7B97277E9C",Tokenevent:"",WithDrawEther:0,DepositEther:0,DepositToken:10,WithDrawToken:0,DSymbol:"DE",WSymbol:""};
   }
   
 
@@ -71,12 +71,14 @@ class App extends Component {
   //ManageToken//
   //////////////
   handleDepositEther=async ()=>{
+    let vaue=this.state.DepositEther;
     await this.ExchangeInstance.methods.depositEther().send({from:this.accounts[0],value:this.web3.utils.toWei("0.05", "ether")});
     this.handleBalanceEther();
   }
 
   handleWithDrawEther=async()=>{
-    await this.ExchangeInstance.methods.withdrawEther({value:this.web3.utils.toWei(this.state.WithDrawEther,"ether")}).call();
+    let vaue=this.web3.utils.toString(this.state.WithDrawEther);
+    await this.ExchangeInstance.methods.withdrawEther(this.web3.utils.toWei("0.01","ether")).send({from:this.accounts[0]})
     this.handleBalanceEther();
   }
   handleBalanceEther=async()=>{
@@ -92,20 +94,20 @@ class App extends Component {
    
   
   TransferToken=async ()=>{
-   
-    
-    let tokenInstancesend= await this.TokenInstance.methods.transfer(this.state.Reciepent,this.state.TokenValue).send({from:this.accounts[0]});
+    await this.TokenInstance.methods.transfer(this.state.Reciepent,this.state.TokenValue).send({from:this.accounts[0]});
     this.UpdateUserToken();
-    console.log(tokenInstancesend);
+    console.log(this.state.Reciepent,this.state.TokenValue);
     
  }
 
  DepositToken=async()=>{
-  await this.ExchangeInstance.methods.depositToken().call()
+  await this.ExchangeInstance.methods.depositToken(this.state.DSymbol,this.state.DepositToken).send({from:this.accounts[0]});
+  this.UpdateUserToken();
  }
 
  WithDrawToken=async()=>{
-  await this.ExchangeInstance.methods.withToken().call()
+  await this.ExchangeInstance.methods.withToken(this.state.WSymbol,this.state.WithDrawToken).send({from:this.accounts[0]});
+  this.UpdateUserToken();
  }
 
  InputHandleChangeForText=(event)=>{
@@ -117,6 +119,8 @@ class App extends Component {
    console.log(value);
    
  }
+
+
  
  InputHandleChangeForValue=(event)=>{
   const target=event.target;
@@ -127,14 +131,13 @@ class App extends Component {
  
 }
 
-InputHandleChangeForSymbolToken=(event)=>{
+InputHandleChangeForSymbolToken=async(event)=>{
   const target=event.target;
   const value=target.type==="checkBox" ? target.checked: target.value;
-
   this.setState({NameOfToken:value})
 }
 
-InputHandleChangeForSymbolAddress=(event)=>{
+InputHandleChangeForSymbolAddress=async(event)=>{
   const target=event.target;
   const value=target.type==="checkBox" ? target.checked: target.value;
 
@@ -142,20 +145,40 @@ InputHandleChangeForSymbolAddress=(event)=>{
 }
 
 ApproveAccount=async()=>{
-  await this.TokenInstance.methods.approve(this.state.Reciepent,this.state.TokenValue).send({from :this.accounts[0]});
+  await this.TokenInstance.methods.approve(this.state.AllowanceAddress,this.state.AllowanceToken).send({from :this.accounts[0]});
   this.UpdateUserToken();
 }
 
  AddTokenToExchange=async()=>{
-   await this.ExchangeInstance.methods.addToken(this.state.NameOfToken,this.state.AddressOfToken).call({from:this.accounts[0]});
+   let add=await this.ExchangeInstance.methods.addToken("DE","0x64aeBc75a0285D7b2D2d5c6A20eB3E7B97277E9C").send({from:this.accounts[0]});
+   this.UpdateUserToken();
+   console.log(add);
+   alert(
+    `Token Added`,
+  );
+   
+ } 
+ //////////////////////
+ //Buy & Sell Tokens//
+ ////////////////////
+ BuyToken=async()=>{
+  await this.ExchangeInstance.methods.buyToken("DE","10","1").send({from:this.accounts[0]});
+ }
 
- }  
+ SellToken=async()=>{
+  await this.ExchangeInstance.methods.sellToken("DE","9","1").send({from:this.accounts[0]});
+ }
+ /////////////////////
  //eventlistnerwrong//
+ ////////////////////
  EventListener=async()=>{
-   let evnt=await this.TokenInstance.events.Transfer({to:this.accounts[0]}).on("data",this.updateusertoken);
-   this.setState({Tokenevent:evnt})
-   const results= await this.TokenInstance.getPastEvents('events',{fromBlock:0});
-   console.log(results);
+   let evnt=await this.TokenInstance.OrderBook({},{fromBlock:0});
+   
+ }
+
+ getSymbolindex=async()=>{
+   let sy=await this.ExchangeInstance.methods.getsymbolIndex('DE').call({from:this.accounts[0]});
+   this.setState({TokenValue:sy});
  }
   
 /*
@@ -200,14 +223,16 @@ ApproveAccount=async()=>{
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
+      
     
       <div className="App">
+        
          <Router>
         <Navigation />
         <Switch>
-          <Route path="/" exact component={() => <ExchangeOverview Token={this.state.NTokens} balance={this.state.balance}/>} />
-          <Route path="/About" exact component={() => <About />} />
-          <Route path="/ManageToken" exact component={() => <ManageToken  TokenTransfer={this.TransferToken} ApproveToken={this.ApproveAccount} AddTokenToExchange={this.AddTokenToExchange}  Reciepent ={this.state.Reciepent} TokenValue={this.state.TokenValue} InputHandleChangeForText={this.InputHandleChangeForText}  InputHandleChangeForValue={this.InputHandleChangeForValue}/>} />
+          <Route path="/" exact component={() => <ExchangeOverview Token={this.state.NTokens} balance={this.state.balance} MainApp={this}/>} />
+          <Route path="/About" exact component={() => <About MainApp={this} />} />
+          <Route path="/ManageToken" exact component={() => <ManageToken  TokenTransfer={this.TransferToken} ApproveToken={this.ApproveAccount} AddTokenToExchange={this.AddTokenToExchange}  state ={this.state} InputHandleChangeForText={this.InputHandleChangeForText}  InputHandleChangeForValue={this.InputHandleChangeForValue} MainApp={this}/>} />
         </Switch>
         <Footer />
       </Router>

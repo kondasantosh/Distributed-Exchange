@@ -1,6 +1,6 @@
 import  React from "react";
 
-function About(){
+function About(props){
     return(
         <div  className="About">
             <div class="container-fluid">
@@ -12,7 +12,7 @@ function About(){
                     <div class="row">
                         <div class="col-lg-6">
                         <div class=" card">
-                              <div class="card-header bg-primary text-white">Buy Token</div>
+                              <div class="card-header bg-success text-white">Buy Token</div>
                                 <div class="card-body ">
                                 <form>
                                 <div class="form-group">
@@ -26,13 +26,13 @@ function About(){
                               
                                    </form>
                                    </div>
-                                   <div class="card-footer"><button type="button" class="btn btn-primary" >Deposit Token</button></div>
+                                   <div class="card-footer"><button type="button" class="btn  bg-success : hover text-white" onClick={props.MainApp.BuyToken} >Buy Token</button></div>
                                    </div> 
 
                         </div>
                         <div class="col-lg-6">
                         <div class=" card">
-                              <div class="card-header bg-primary text-white">Sell Token</div>
+                              <div class="card-header bg-danger text-white">Sell Token</div>
                                 <div class="card-body ">
                                 <form>
                                 <div class="form-group">
@@ -46,7 +46,7 @@ function About(){
                               
                                    </form>
                                    </div>
-                                   <div class="card-footer"><button type="button" class="btn btn-primary" >Sell Token</button></div>
+                                   <div class="card-footer"><button type="button" class="btn btn-danger" onClick={props.MainApp.SellToken} >Sell Token</button></div>
                                    </div> 
 
                                    </div>
@@ -59,7 +59,7 @@ function About(){
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-header bg-danger ">
-                                    <div class="card-title">
+                                    <div class="card-title text-white">
                                     BID
                                     </div>
                                 </div>

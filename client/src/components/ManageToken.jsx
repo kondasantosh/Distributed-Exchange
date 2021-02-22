@@ -16,7 +16,7 @@ function ManageToken(props){
                              <br/>
                             Additionally you can add a token to the exchange provided in this example.
                         </p>
-                        <h3>You have  TOKEN in your account</h3>
+                        <h3>You have {props.state.NTokens} TOKEN in your account</h3>
                         <div class="row">
                              <div class="col-lg-6">
                                  <div class=" card">
@@ -25,11 +25,11 @@ function ManageToken(props){
                                          <form>
                                              <div class="form-group">
                                                  <lable for="inputAmountSendToken">Amount in Token</lable>
-                                                 <input type="text" name="InputAmountSendToken" class="form-control"  value={props.TokenValue}  onChange={props.InputHandleChangeForValue}></input>
+                                                 <input type="text" name="InputAmountSendToken" class="form-control"  value={props.state.TokenValue}  onChange={props.InputHandleChangeForValue}></input>
                                              </div>
                                              <div class="form-group">
                                                  <lable for="inputBeneficiarySendToken">To Address</lable>
-                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control" value={props.Reciepent} onChange={props.InputHandleChangeForText}></input>
+                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control" value={props.state.Reciepent} onChange={props.InputHandleChangeForText}></input>
                                              </div>
                                              <button type="button" class="btn btn-primary" onClick={props.TokenTransfer} >Send Token</button>
                                          </form>
@@ -44,11 +44,11 @@ function ManageToken(props){
                                          <form>
                                              <div class="form-group">
                                                  <lable for="inputAmountAllowanceToken">Amount in Token</lable>
-                                                 <input type="text" name="inputAmountAllowanceToken" class="form-control"></input>
+                                                 <input type="text" name="inputAmountAllowanceToken" class="form-control" value={props.state.AllowanceToken}  onChange={event=>props.MainApp.setState({AllowanceToken:event.target.value})}></input>
                                              </div>
                                              <div class="form-group">
                                                  <lable for="inputBeneficiaryAllowanceToken">To Address</lable>
-                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control"></input>
+                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control" value={props.state.AllowanceAddress} onChange={event=>props.MainApp.setState({AllowanceAddress:event.target.value})}></input>
                                              </div>
                                              <button type="button" class="btn btn-primary" onClick={props.ApproveToken}>Allow Token to be used</button>
                                          </form>
@@ -68,13 +68,13 @@ function ManageToken(props){
                                          <form>
                                              <div class="form-group">
                                                  <lable for="inputNameTokenAddExchange">Name of the Token</lable>
-                                                 <input type="text" name="inputAmountAllowanceToken" class="form-control"></input>
+                                                 <input type="text" name="AddTokenToExchangeName" class="form-control"  value={props.state.NameOfToken} onChange={event=>props.MainApp.setState({NameOfToken:event.target.value})}></input>
                                              </div>
                                              <div class="form-group">
                                                  <lable for="inputBeneficiaryAllowanceToken">Address of Token</lable>
-                                                 <input type="text" name="InputBeneficiarySendToken" class="form-control"></input>
+                                                 <input type="text" name="AddressOfTheToken" class="form-control" value={props.state.AddressOfToken} onChange={event=>props.MainApp.setState({AddressOfToken:event.target.value})}></input>
                                              </div>
-                                             <button type="button" class="btn btn-primary" onClick={props.AddTokenToExchange}>Add Token to Exchange</button>
+                                             <button type="button" class="btn btn-primary" onClick={props.MainApp.AddTokenToExchange}>Add Token to Exchange</button>
                                          </form>
                                      </div>
                                      

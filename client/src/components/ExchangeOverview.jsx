@@ -9,7 +9,7 @@ function ExchangeOverview(props){
                    <h1>Distributed Token Exchange</h1>
             <h3>You have <span class="black"><span >{props.Token}</span> DE TOKEN</span> in the
                 exchange</h3>
-            <h3>You have <span class="black"><span >{props.balance}</span> ETHER</span> in the exchange</h3>
+            <h3>You have <span class="black"><span >{props.balance}</span> WEI</span> in the exchange</h3>
             <hr />
             <h3>Deposit</h3>
             <div class="row">
@@ -20,16 +20,16 @@ function ExchangeOverview(props){
                      <form>
                           <div class="form-group">
                            <lable for="inputAmountSendToken">SymbolName</lable>
-                              <input type="text" name="InputAmountSendToken" class="form-control"  ></input>
+                              <input type="text" name="InputAmountSendToken" class="form-control" value={props.MainApp.state.DSymbol} onChange={event=>props.MainApp.setState({DSymbol:event.target.value})}></input>
                                   </div>
                                    <div class="form-group">
                                      <lable for="inputBeneficiarySendToken">Amount in Token</lable>
-                                       <input type="text" name="InputBeneficiarySendToken" class="form-control" ></input>
+                                       <input type="text" name="InputBeneficiarySendToken" class="form-control"  value={props.MainApp.state.DepositToken} onChange={event=>props.MainApp.setState({DepositToken:event.target.value})}></input>
                                   </div>
                               
                       </form>
                         </div>
-                    <div class="card-footer"><button type="button" class="btn btn-primary" >Deposit Token</button></div>
+                    <div class="card-footer"><button type="button" class="btn btn-primary" onClick={props.MainApp.DepositToken} >Deposit Token</button></div>
                 </div> 
                 </div>
                 <div class="col-lg-6">
@@ -39,13 +39,13 @@ function ExchangeOverview(props){
                      <form>
                           <div class="form-group">
                            <lable for="inputAmountSendToken">Amount in Ether</lable>
-                              <input type="text" name="InputAmountSendToken" class="form-control"  ></input>
+                              <input type="text" name="InputAmountSendToken" class="form-control"  value={props.MainApp.state.DepositEther} onChange={event=>props.MainApp.setState({DepositEther:event.target.value})}></input>
                                   </div>
                                   
                               
                       </form>
                         </div>
-                    <div class="card-footer"><button type="button" class="btn btn-primary" >Deposit Ether</button></div>
+                    <div class="card-footer"><button type="button" class="btn btn-primary" onClick={props.MainApp.handleDepositEther}  >Deposit Ether</button></div>
                 </div> 
                 </div>
 
@@ -61,16 +61,16 @@ function ExchangeOverview(props){
                      <form>
                           <div class="form-group">
                            <lable for="inputAmountWithDrawToken">SymbolName</lable>
-                              <input type="text" name="InputAmountWithDrawToken" class="form-control"  ></input>
+                              <input type="text" name="InputAmountWithDrawToken" class="form-control" value={props.MainApp.state.WSymbol} onChange={event=>props.MainApp.setState({WSymbol:event.target.value})} ></input>
                                   </div>
                                    <div class="form-group">
                                      <lable for="inputBeneficiaryWithDrawToken">Amount in Token</lable>
-                                       <input type="text" name="InputBeneficiaryWithDrawToken" class="form-control" ></input>
+                                       <input type="text" name="InputBeneficiaryWithDrawToken" class="form-control"  value={props.MainApp.state.WithDrawToken} onChange={event=>props.MainApp.setState({WithDrawToken:event.target.value})} ></input>
                                   </div>
                               
                       </form>
                         </div>
-                    <div class="card-footer"><button type="button" class="btn btn-primary" >Withdraw Token</button></div>
+                    <div class="card-footer"><button type="button" class="btn btn-primary"  onClick={props.MainApp.WithDrawToken}>Withdraw Token</button></div>
                 </div> 
                 </div>
                 <div class="col-lg-6">
@@ -80,13 +80,13 @@ function ExchangeOverview(props){
                      <form>
                           <div class="form-group">
                            <lable for="inputAmountWithdrawEther">Amount in Ether</lable>
-                              <input type="text" name="InputAmountWithdrawEther" class="form-control"  ></input>
+                              <input type="text" name="InputAmountWithdrawEther" class="form-control" value={props.MainApp.state.WithDrawEther} onChange={event=>props.MainApp.setState({WithDrawEther:event.target.value})} ></input>
                                   </div>
                                   
                               
                       </form>
                         </div>
-                    <div class="card-footer"><button type="button" class="btn btn-primary" >WithDraw Ether</button></div>
+                    <div class="card-footer"><button type="button" class="btn btn-primary"  onClick={props.MainApp.handleWithDrawEther} >WithDraw Ether</button></div>
                 </div> 
                 </div>
                 

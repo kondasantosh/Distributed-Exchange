@@ -11,6 +11,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0",
     "recoil": "^0.1.2",
+    "redux": "^4.0.5",
     "web3": "1.2.2"
   },
   "scripts": {

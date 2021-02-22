@@ -71,7 +71,7 @@ contract Exchange is Owner{
 
     function withdrawEther(uint amountInWei) public payable{
             require((balanceEtherAddress[msg.sender]-amountInWei)>=0,"You dont have  enough balance");
-            require(amountInWei>0);
+            require(amountInWei>0,"not greater than 0");
             (msg.sender).transfer(amountInWei);
             balanceEtherAddress[msg.sender]-=amountInWei;
             WithEtherEmit(msg.sender,amountInWei,block.timestamp);
@@ -88,6 +88,7 @@ contract Exchange is Owner{
     //////////////////////
     function addToken(string memory symbolName,address erc20TokenAddress) public onlyOwner{
         require(!hasToken(symbolName),"Already have it");
+         require(symbolNameIndex + 1 > symbolNameIndex,"syoblo 1");
         symbolNameIndex++;
         token[symbolNameIndex].symbolName=symbolName;
         token[symbolNameIndex].tokenContract=erc20TokenAddress;
@@ -117,7 +118,7 @@ contract Exchange is Owner{
 
     function getSymbolIndexOrThrow(string memory symbol) public view returns(uint8){
         uint8 Index=getsymbolIndex(symbol);
-        require(Index>0,"Index is less than 0");
+        require(Index>=0,"Index is less than 0");
         return(Index);
     }
 
@@ -148,6 +149,7 @@ contract Exchange is Owner{
         require(token[symbolNameIndex].tokenContract!=address(0),"address problem");
         ERC20 token=ERC20(token[symbolNameIndex].tokenContract);
         require(token.transferFrom(msg.sender,address(this),amount)==true,"token transfer failed");
+       
         require(TokenBalanceAddress[msg.sender][symbolNameIndex]+amount>=TokenBalanceAddress[msg.sender][symbolNameIndex],"tokenbalanceadrresss+amount fail");
         TokenBalanceAddress[msg.sender][symbolNameIndex]+=amount;
         emit DepositTokenEmit(msg.sender,symbolNameIndex,amount,block.timestamp);
