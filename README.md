@@ -2,7 +2,8 @@ Ethereum Distributed Token Exchange
 
 This repository is inspired by the Ethereum Developer Masterclass: ICO and Token Exchange with Solidity course on Udemy. The Token-Exchange which I was inspired from can be tested with MetaMask and the Rinkeby Test-Net under https://tomw1808.github.io/distributed_exchange_truffle_class_3/index.html
 
-
+Output
+![output](Output2.gif)
 
 The Exchange Smart-Contract has 3 functions:
 
